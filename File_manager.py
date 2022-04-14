@@ -67,9 +67,9 @@ def user():
 
 
 # 9
-#def my_victorina():
- #   from victorina import vict
- #   vict()
+def my_victorina():
+    from victorina import vict
+    vict()
 
 
 # 10
@@ -114,8 +114,8 @@ while True:
         syst()
     elif choice == '8':
         user()
-   # elif choice == '9':
-   #     my_victorina()
+    elif choice == '9':
+        my_victorina()
    # elif choice == '10':
    #     my_schet()
     elif choice == '11':
