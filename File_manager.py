@@ -73,9 +73,9 @@ def my_victorina():
 
 
 # 10
-#def my_schet():
- #   from bank_schet import schet
- #   schet()
+def my_schet():
+    from bank_schet import schet
+    schet()
 
 
 # 11
@@ -116,8 +116,8 @@ while True:
         user()
     elif choice == '9':
         my_victorina()
-   # elif choice == '10':
-   #     my_schet()
+    elif choice == '10':
+        my_schet()
     elif choice == '11':
         smena()
     elif choice == '12':
