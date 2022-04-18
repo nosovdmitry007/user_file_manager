@@ -1,5 +1,5 @@
 import os
-def folder_save_to_file(spisok=os.listdir()):
+def folder_save_to_file(spisok):
     file=['files: ']
     dris=['dirs: ']
     for j in spisok:
@@ -11,5 +11,5 @@ def folder_save_to_file(spisok=os.listdir()):
 
     with open('listdir.txt', 'w') as expense:
         expense.write(str(" ".join(put)))
-
+    return 'Файл записан'
 

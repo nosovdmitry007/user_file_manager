@@ -35,6 +35,7 @@ def copy_file(papka_old,papka_new):
 
 # 4
 def soderg():
+
    print(folder_save_to_file(os.listdir()))
 
 # 5
@@ -94,7 +95,7 @@ def fil_man():
         elif choice == '2':
             del_folder(input('Введите название папки/файла для удаления: '))
         elif choice == '3':
-            copy_file(input('Введите название папки/файла для копирования: '),input('Введите новое название папки/файла: '))
+            copy_file(input('Введите название папки/файла для копирования: '), input('Введите новое название папки/файла: '))
         elif choice == '4':
             soderg()
         elif choice == '5':
