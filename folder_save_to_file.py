@@ -1,5 +1,5 @@
 import os
-def folder_save_to_file(spisok):
+def folder_save_to_file(spisok=os.listdir()):
     file=['files: ']
     dris=['dirs: ']
     for j in spisok:
