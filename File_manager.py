@@ -1,11 +1,12 @@
 import os
 import shutil
+from bank_schet import schet
+from victorina import vict
 
 
 # 1
 def new_folder(n):
     os.mkdir(n)
-
 
 # 2
 def del_folder(papka):
@@ -17,7 +18,6 @@ def del_folder(papka):
             os.remove(papka)
     else:
         print('Нет такой папки/файла')
-
 
 # 3
 def copy_file(papka_old,papka_new):
@@ -31,11 +31,9 @@ def copy_file(papka_old,papka_new):
     else:
         print('Нет такой папки/файла')
 
-
 # 4
 def soderg():
     print(os.listdir())
-
 
 # 5
 def papki():
@@ -45,7 +43,6 @@ def papki():
             k.append(j)
     print(k)
 
-
 # 6
 def fail():
     k = []
@@ -54,28 +51,21 @@ def fail():
             k.append(j)
     print(k)
 
-
 # 7
 def syst():
     print(os.uname())
-
 
 # 8
 def user():
     print(os.getlogin())
 
-
 # 9
 def my_victorina():
-    from victorina import vict
     vict()
-
 
 # 10
 def my_schet():
-    from bank_schet import schet
     schet()
-
 
 # 11
 def smena():

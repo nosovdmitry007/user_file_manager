@@ -1,75 +1,61 @@
-"""
-МОДУЛЬ 3
-Программа "Личный счет"
-Описание работы программы:
-Пользователь запускает программу у него на счету 0
-Программа предлагает следующие варианты действий
-1. пополнить счет
-2. покупка
-3. история покупок
-4. выход
+import os
+import json
+pokupki={}
 
-1. пополнение счета
-при выборе этого пункта пользователю предлагается ввести сумму на сколько пополнить счет
-после того как пользователь вводит сумму она добавляется к счету
-снова попадаем в основное меню
-
-2. покупка
-при выборе этого пункта пользователю предлагается ввести сумму покупки
-если она больше количества денег на счете, то сообщаем что денег не хватает и переходим в основное меню
-если денег достаточно предлагаем пользователю ввести название покупки, например (еда)
-снимаем деньги со счета
-сохраняем покупку в историю
-выходим в основное меню
-
-3. история покупок
-выводим историю покупок пользователя (название и сумму)
-возвращаемся в основное меню
-
-4. выход
-выход из программы
-
-При выполнении задания можно пользоваться любыми средствами
-
-Для реализации основного меню можно использовать пример ниже или написать свой
-"""
-def schet():
-    schet=0
-    pokupki={}
-    import json
-    def popolnenie(schet1):
-      global schet
-      schet=schet1+int(input('На какую сумму пополнить счёт? '))
-      print('Счет пополнен, сумма на счете: ', schet)
-      return schet
-    def pokupka(schet1,pokupki):
-      global schet
-      k=int(input('Введите сумму покупки: '))
-      if k>schet1:
-        print('Денег недостаточно для покупки: ')
-      else:
-        pokupki[input('Введите название покупки: ')]=k
-        schet=schet1-k
-        print('Сумма на счете: ', schet)
-        return pokupki
-    def story(pokupki):
-      print('История покупок: \n',json.dumps(pokupki, indent=4))
+def open_file_reading(name_file):
+  with open(name_file, 'r') as expense:
+    return expense.read()
+def sum_chet_write(schet):
+  with open('invoice_amount.txt', 'w') as expense:
+    expense.write(str(schet))
+def shopping_history_write(pokupki):
+  with open('shopping_history.txt', 'a') as expense:
+    expense.write(str(pokupki))
 
 
-    while True:
-        print('1. пополнение счета')
-        print('2. покупка')
-        print('3. история покупок')
-        print('4. выход')
+if os.path.exists('invoice_amount.txt'):
+    print('На счете: ', open_file_reading('invoice_amount.txt'))
+else:
+    with open('invoice_amount.txt','w') as expense:
+        expense.write('0')
 
-        choice = input('Выберите пункт меню ')
-        if choice == '1':
-            popolnenie(schet)
-        elif choice == '2':
-            pokupka(schet,pokupki)
-        elif choice == '3':
-            story(pokupki)
-        elif choice == '4':
-            break
-        else:
-            print('Неверный пункт меню')
+if not os.path.exists('shopping_history.txt'):
+     with open('shopping_history.txt','w') as expense:
+        expense.write('')
+
+
+def popolnenie():
+    schet=int(open_file_reading('invoice_amount.txt'))
+    schet+=int(input('На какую сумму пополнить счёт? '))
+    print('Счет пополнен, сумма на счете: ', schet)
+    sum_chet_write(schet)
+def pokupka():
+  schet=int(open_file_reading('invoice_amount.txt'))
+  k=int(input('Введите сумму покупки: '))
+  if k>schet:
+    print('Денег недостаточно для покупки: ')
+  else:
+    pokupki[input('Введите название покупки: ')]=k
+    shopping_history_write(pokupki)
+    schet=schet-k
+    sum_chet_write(schet)
+    print('Сумма на счете: ', schet)
+def story():
+    print('История покупок: \n',json.dumps(open_file_reading('shopping_history.txt'), indent=3))
+while True:
+    print('1. пополнение счета')
+    print('2. покупка')
+    print('3. история покупок')
+    print('4. выход')
+
+    choice = input('Выберите пункт меню ')
+    if choice == '1':
+        popolnenie()
+    elif choice == '2':
+        pokupka()
+    elif choice == '3':
+        story()
+    elif choice == '4':
+        break
+    else:
+        print('Неверный пункт меню')
