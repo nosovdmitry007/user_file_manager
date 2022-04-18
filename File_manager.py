@@ -2,6 +2,8 @@ import os
 import shutil
 from bank_schet import schet
 from victorina import vict
+from folder_save_to_file import folder_save_to_file
+
 
 
 # 1
@@ -33,7 +35,7 @@ def copy_file(papka_old,papka_new):
 
 # 4
 def soderg():
-    print(os.listdir())
+    folder_save_to_file()
 
 # 5
 def papki():
