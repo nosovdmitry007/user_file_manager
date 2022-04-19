@@ -1,18 +1,38 @@
+
+def add_separators(f):
+    # inner - итоговая функция с новым поведение
+    def inner(*args, **kwargs):
+        # поведение до вызова
+        print('*' * 100)
+        result = f(*args, **kwargs)
+        # поведение после вызова
+        print('*' * 100)
+        return result
+
+    # возвращается функция inner с новым поведением
+    return inner
+
+def open_file_reading(name_file):
+    with open(name_file, 'r') as expense:
+        return expense.read()
+
+
+def sum_chet_write(schet):
+    with open('invoice_amount.txt', 'w') as expense:
+        expense.write(str(schet))
+
+
+def shopping_history_write(pokupki):
+    with open('shopping_history.txt', 'a') as expense:
+        expense.write(str(pokupki))
+
 def schet():
 
     import os
     import json
     pokupki={}
 
-    def open_file_reading(name_file):
-      with open(name_file, 'r') as expense:
-        return expense.read()
-    def sum_chet_write(schet):
-      with open('invoice_amount.txt', 'w') as expense:
-        expense.write(str(schet))
-    def shopping_history_write(pokupki):
-      with open('shopping_history.txt', 'a') as expense:
-        expense.write(str(pokupki))
+
 
 
     if os.path.exists('invoice_amount.txt'):
@@ -25,15 +45,23 @@ def schet():
          with open('shopping_history.txt','w') as expense:
             expense.write('')
 
-
+    @add_separators
     def popolnenie():
         schet=int(open_file_reading('invoice_amount.txt'))
-        schet+=int(input('На какую сумму пополнить счёт? '))
+        try:
+            schet+=float(input('На какую сумму пополнить счёт? '))
+        except ValueError:
+            print('Неверный ввод.\nСумма должна быть в цифрах')
         print('Счет пополнен, сумма на счете: ', schet)
         sum_chet_write(schet)
+
+    @add_separators
     def pokupka():
       schet=int(open_file_reading('invoice_amount.txt'))
-      k=int(input('Введите сумму покупки: '))
+      try:
+        k=float(input('Введите сумму покупки: '))
+      except ValueError:
+          print('Неверный ввод.\nСумма должна быть в цифрах')
       if k>schet:
         print('Денег недостаточно для покупки: ')
       else:
@@ -42,6 +70,8 @@ def schet():
         schet=schet-k
         sum_chet_write(schet)
         print('Сумма на счете: ', schet)
+
+    @add_separators
     def story():
         print('История покупок: \n',json.dumps(open_file_reading('shopping_history.txt'), indent=3))
     while True:

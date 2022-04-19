@@ -1,64 +1,58 @@
 import os
 import shutil
-from bank_schet import schet
+import platform
+
+from bank_schet import schet, add_separators
 from victorina import vict
 from folder_save_to_file import folder_save_to_file
-
-
 
 # 1
 def new_folder(n):
     os.mkdir(n)
 
+
 # 2
 def del_folder(papka):
-
     if os.path.exists(papka):
-        if '.' in papka:
-            os.rmdir(papka)
-        else:
-            os.remove(papka)
+        os.rmdir(papka) if '.' in papka else os.remove(papka)
     else:
         print('Нет такой папки/файла')
+
 
 # 3
-def copy_file(papka_old,papka_new):
-
+def copy_file(papka_old, papka_new):
     if os.path.exists(papka_old):
-
-        if '.' in papka_old:
-            shutil.copytree(papka_old, papka_new)
-        else:
-            shutil.copy(papka_old, papka_new)
+        shutil.copytree(papka_old, papka_new) if '.' in papka_old else shutil.copy(papka_old, papka_new)
     else:
         print('Нет такой папки/файла')
 
-# 4
-def soderg():
 
-   print(folder_save_to_file(os.listdir()))
+# 4
+@add_separators
+def soderg():
+    print(folder_save_to_file(os.listdir()))
+
 
 # 5
+@add_separators
 def papki():
-    k = []
-    for j in os.listdir():
-        if not '.' in j:
-            k.append(j)
-    print(k)
+    result = [direct for direct in os.listdir() if not '.' in direct]
+    print(result)
+
 
 # 6
+@add_separators
 def fail():
-    k = []
-    for j in os.listdir():
-        if '.' in j:
-            k.append(j)
-    print(k)
+    result = [file for file in os.listdir() if '.' in file]
+    print(result)
 
 # 7
+@add_separators
 def syst():
-    print(os.uname())
+    print(platform.system())
 
 # 8
+@add_separators
 def user():
     print(os.getlogin())
 
@@ -70,9 +64,11 @@ def my_victorina():
 def my_schet():
     schet()
 
+
 # 11
 def smena():
     os.chdir(input('Введите имя новой дериктории: '))
+
 
 def fil_man():
     while True:
@@ -95,7 +91,8 @@ def fil_man():
         elif choice == '2':
             del_folder(input('Введите название папки/файла для удаления: '))
         elif choice == '3':
-            copy_file(input('Введите название папки/файла для копирования: '), input('Введите новое название папки/файла: '))
+            copy_file(input('Введите название папки/файла для копирования: '),
+                      input('Введите новое название папки/файла: '))
         elif choice == '4':
             soderg()
         elif choice == '5':
@@ -116,5 +113,6 @@ def fil_man():
             break
         else:
             print('Неверный пункт меню')
+
 
 fil_man()
